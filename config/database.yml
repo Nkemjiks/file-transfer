@@ -20,9 +20,3 @@ development:
 test:
   <<: *default
   database: <%= ENV['POSTGRES_TEST_DB'] %>
-
-production:
-  <<: *default
-  database: filetransfer_production
-  username: filetransfer
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
