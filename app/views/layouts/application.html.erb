@@ -9,6 +9,14 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <%= render 'layouts/navigation' %>
+    </header>
+    <main role="main">
+      <div class='container'>
+        <%= render 'layouts/messages' %>
+        <%= yield %>
+      </div>
+    </main>
   </body>
 </html>
