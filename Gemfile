@@ -11,7 +11,7 @@ end
 gem 'rails', '~> 5.1.6', '>= 5.1.6.1'
 gem 'pg'
 gem 'bootstrap', '~> 4.3.1'
-gem 'devise'
+gem 'devise', ">= 4.6.0"
 gem 'devise-bootstrapped', github: 'king601/devise-bootstrapped', branch: 'bootstrap4'
 gem 'jquery-rails'
 # Use Puma as the app server
