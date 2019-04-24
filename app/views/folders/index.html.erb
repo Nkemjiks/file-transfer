@@ -1,0 +1,22 @@
+<% if @folders.empty? %>
+  <h5 class='mt-5'> You have not created any folders yet</h5>
+  <%= link_to '<i class="fas fa-plus"></i> New Folder'.html_safe, new_folder_path, class: "btn btn-primary" %>
+<% else %>
+  <h2 class='mt-5'>Folders</h2>
+  <div class="card-columns">
+    <% @folders.each do |folder| %>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= folder.name %></h5>
+          <p class="card-text"><%= folder.description %></p>
+          <p class="card-text"><small class="text-muted"><%= folder.uploads.count%> file(s)</small></p>
+        </div>
+        <div class="card-footer">
+          <%= link_to 'Show', folder, class: "card-link" %>
+          <%= link_to 'Edit', edit_folder_path(folder), class: "card-link" %>
+          <%= link_to 'Destroy', folder, class: "card-link", method: :delete, data: { confirm: 'Are you sure?' } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

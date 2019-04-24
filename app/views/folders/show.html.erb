@@ -1,0 +1,37 @@
+<div class="text-right mt-4">
+  <%= link_to 'Edit', edit_folder_path(@folder), class: "btn btn-primary" %>
+</div>
+
+<p>
+  <strong>Name:</strong>
+  <%= @folder.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @folder.description %>
+</p>
+
+<div class="card-columns">
+  <% @folder.uploads.each do |upload| %>
+    <div class="card">
+      <div >
+        <% if upload.variable? %>
+          <%= link_to image_tag(upload.variant(resize: "800x800"), class: 'card-img-top img-fluid'), upload %>
+        <% elsif upload.previewable? %>
+          <%= link_to image_tag(upload.preview(resize: "800x800")), rails_blob_path(upload, disposition: :attachment) %>
+        <% elsif upload.image? %>
+          <%= link_to image_tag(upload, width: 800), upload %>
+        <% else %>
+          <%= link_to upload.filename, rails_blob_path(upload, disposition: :attachment) %>
+        <% end %>
+      </div>
+      <div class="card-body">
+        <p class="card-title" id="ft-v"><%= upload.filename %></p>
+      </div>
+      <div class="card-footer">
+        <%= link_to 'Download', rails_blob_path(upload, disposition: :attachment), class: "text-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

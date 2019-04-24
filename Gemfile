@@ -8,9 +8,10 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.6', '>= 5.1.6.1'
+gem 'rails', '~> 5.2'
 gem 'pg'
 gem 'bootstrap', '~> 4.3.1'
+gem 'bootsnap'
 gem 'devise', ">= 4.6.0"
 gem 'devise-bootstrapped', github: 'king601/devise-bootstrapped', branch: 'bootstrap4'
 gem 'jquery-rails'
@@ -29,7 +30,10 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
+gem "google-cloud-storage", "~> 1.11", require: false
 gem 'figaro'
+gem 'mini_magick', '~> 4.8'
+gem 'aws-sdk-s3'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
