@@ -1,10 +1,13 @@
 class FoldersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_user, only: [:index]
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
 
   # GET /folders
   # GET /folders.json
   def index
-    @folders = Folder.all
+    @folders = @user.folders.all
   end
 
   # GET /folders/1
@@ -24,7 +27,7 @@ class FoldersController < ApplicationController
   # POST /folders
   # POST /folders.json
   def create
-    @folder = Folder.new(folder_params)
+    @folder = Folder.new(folder_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @folder.save
@@ -41,7 +44,7 @@ class FoldersController < ApplicationController
   # PATCH/PUT /folders/1.json
   def update
     respond_to do |format|
-      if @folder.update(folder_params)
+      if @folder.update(folder_params.merge(user_id: current_user.id))
         format.html { redirect_to @folder, notice: 'Folder was successfully updated.' }
         format.json { render :show, status: :ok, location: @folder }
       else
@@ -64,7 +67,18 @@ class FoldersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_folder
-      @folder = Folder.find(params[:id])
+      @folder = Folder.find_by!(id: params[:id], user_id: current_user.id)
+    end
+
+    def set_user
+      @user = User.find(current_user.id)
+    end
+
+    def handle_record_not_found
+      respond_to do |format|
+        format.html { render :not_found }
+        format.json { render json: { message: 'We are sorry. The resource you are looking for does not exist', status: 404}, status: :not_found }
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
